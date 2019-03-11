@@ -1,7 +1,6 @@
 let playerSize = 10;
 let plankSize = [80, 15];
 let gravity = playerSize * 1;
-let jumpHeight = 10;
 let jumpHeight = 15;
 let plankDist = [50, 50];
 let planks = [];
@@ -23,7 +22,6 @@ function setup() {
 function draw() {
   background(0);
   lavaFloor.show();
-  player.show(lavaFloor);
   for (i = 0; i < planks.length; i++){
     if (standing == planks[i]){
       player.show(planks[i]);
@@ -35,38 +33,6 @@ function draw() {
 
 function windowResized(){
   resizeCanvas(window.innerWidth, window.innerHeight);
-}
-
-class lava{ //the ground floor that is lava
-
-  constructor(x, y){
-    this.x = x;
-    this.y = y;
-  }
-
-  show(){
-    fill(255, 100, 0);
-    stroke(255, 0, 0);
-    rect(this.x, this.y, width, 1000);
-  }
-}
-
-class character{ //the character you move as
-
-  constructor(x, y){
-    this.x = x;
-    this.y = y;
-    this.jump = false;
-    this.landing = true;
-    this.counter = 0;
-  }
-
-  show(floor){ //pass in the new x and y, works as an update function
-    fill(0);
-    stroke(255);
-    checkInput(this, floor);
-    characterShape(this.x, this.y);
-  }
 }
 
 function characterShape(x, y){ //shapes our character, taking in the coordinates of them
@@ -91,27 +57,21 @@ function characterShape(x, y){ //shapes our character, taking in the coordinates
 }
 
 function checkInput(player1, floor){ //checks the input before updating the players position
-  if (keyIsDown(LEFT_ARROW)){
   if (keyIsDown(LEFT_ARROW) && player1.x - (2 * playerSize) > 0){
     player1.x -= playerSize;
   }
-  if (keyIsDown(RIGHT_ARROW)){
   if (keyIsDown(RIGHT_ARROW) && player1.x + playerSize < width){
     player1.x += playerSize;
   }
   if (player1.y + (5 * playerSize) < floor.y && player1.landing){ //find nearest platform near player, compare its y value with player1.y
     player1.y += gravity;
   }
-  if (keyIsDown(UP_ARROW)){
   if (keyIsDown(UP_ARROW) && player1.offPlank == false){
     if (player1.jump == false){
       player1.jump = true;
       player1.landing = false;
     }
   }
-    if (player1.counter < (jumpHeight * playerSize) && !player1.landing){
-      player1.counter += playerSize;
-      player1.y -= gravity;
   if (player1.counter < (jumpHeight * playerSize) && !player1.landing){
     player1.counter += playerSize;
     player1.y -= gravity;
@@ -154,9 +114,6 @@ function checkStanding(player, planks){
       min = dist(player.x, player.y, planks[i].x, planks[i].y);
       index = i;
     }
-    else if (player1.counter > 0){
-      player1.counter -= playerSize;
-      player1.landing = true;
   }
   standing = planks[index];
 }
@@ -209,8 +166,6 @@ class plank{
       stroke(0, 255, 0);
     }
     else{
-      player1.counter = 0;
-      player1.jump = false;
       colorMode(RGB, 255);
       fill(255, 255, 255);
       stroke(0, 255, 0);
