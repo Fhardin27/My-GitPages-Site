@@ -1,30 +1,35 @@
 let playerSize = 10;
-let plankSize = [80, 15];
+let plankSize = [100, 15];
 let gravity = playerSize * 1;
 let jumpHeight = 15;
-let plankDist = [50, 50];
+let plankDist = [100, 150];
 let planks = [];
-let standing;
 let lavaFloor;
 let player;
 
 function setup() {
+  x = 200;
+  y = 200;
   var cnv = createCanvas(window.innerWidth, window.innerHeight);
   cnv.style('display', 'block');
-  lavaFloor = new lava(0, height - 50);
-  player = new character(100, 100);
-  planks.push(new plank(70, 100 + (5 * playerSize))); //test plank spawns right under player
-  standing = planks[0];
-  for (i = 1; i < 10; i++)
-    planks.push(new plank(planks[i - 1].x + (2 *plankSize[0]), planks[i - 1].y + gravity));
+
+  lavaFloor = new lava(0, height - 50); //set up the character and first platform
+  player = new character(x, y);
+  planks.push(new plank(x, y + (5 * playerSize))); //test plank spawns right under player
+  planks[0].isCurrent = true;
+
+  for (i = 1; i < 20; i++) //put the rest of the planks on the screen
+    planks.push(new plank(random(planks[i - 1].x + plankDist[0], planks[i - 1].y + plankDist[1]),
+                          random(planks[i - 1].x + plankDist[0], planks[i - 1].y + plankDist[1])));
 }
 
 function draw() {
   background(0);
   lavaFloor.show();
   for (i = 0; i < planks.length; i++){
-    if (standing == planks[i]){
-      player.show(planks[i]);
+    if (planks[i].isCurrent){
+      player.show();
+      player.update(floor);
     }
     planks[i].show();
   }
@@ -54,55 +59,6 @@ function characterShape(x, y){ //shapes our character, taking in the coordinates
   vertex(x + playerSize, y + playerSize);
   vertex(x, y + playerSize);
   endShape(CLOSE);
-}
-
-function checkInput(player1, floor){ //checks the input before updating the players position
-  if (keyIsDown(LEFT_ARROW) && player1.x - (2 * playerSize) > 0){
-    player1.x -= playerSize;
-  }
-  if (keyIsDown(RIGHT_ARROW) && player1.x + playerSize < width){
-    player1.x += playerSize;
-  }
-  if (player1.y + (5 * playerSize) < floor.y && player1.landing){ //find nearest platform near player, compare its y value with player1.y
-    player1.y += gravity;
-  }
-  if (keyIsDown(UP_ARROW) && player1.offPlank == false){
-    if (player1.jump == false){
-      player1.jump = true;
-      player1.landing = false;
-    }
-  }
-  if (player1.counter < (jumpHeight * playerSize) && !player1.landing){
-    player1.counter += playerSize;
-    player1.y -= gravity;
-  }
-  else if (player1.counter > 0){
-    player1.counter -= playerSize;
-    player1.landing = true;
-  }
-  else{
-    player1.counter = 0;
-    player1.jump = false;
-  }
-  if (player1.x + playerSize < floor.x){ //checks if the player is to far on a platform
-    if (player1.jump == false)
-      player1.y += gravity;
-    player1.offPlank = true;
-  }
-  else if (player1.x - (2 * playerSize) > floor.x + plankSize[0]){
-    if (player1.jump == false)
-      player1.y += gravity;
-    player1.offPlank = true;
-  }
-  else if (player1.y + (5 * playerSize) > floor.y && player1.offPlank == true){
-    player1.y += gravity;
-  }
-  if (player1.x - (2 * playerSize) < floor.x + plankSize[0] && player1.x + playerSize > floor.x){
-    if (player.y + (5 * playerSize) < standing.y)
-      player1.offPlank = false;
-    if (player1.landing == false)
-      player1.jump = false;
-  }
 }
 
 function checkStanding(player, planks){
@@ -137,17 +93,24 @@ class character{ //the character you move as
   constructor(x, y){
     this.x = x;
     this.y = y;
-    this.jump = false;
-    this.landing = true;
-    this.offPlank = false;
-    this.counter = 0;
   }
 
-  show(floor){ //pass in the new x and y, works as an update function
+  show(){ //pass in the new x and y, works as an update function
     fill(0);
     stroke(255);
-    checkInput(this, floor);
     characterShape(this.x, this.y);
+  }
+
+  update(foor){
+    if (keyIsDown(LEFT_ARROW) && this.x - (2 * playerSize) > 0){
+      this.x -= playerSize;
+    }
+    if (keyIsDown(RIGHT_ARROW) && this.x + playerSize < width){
+      this.x += playerSize;
+    }
+    if (keyIsDown(UP_ARROW)){
+      //check when you walk off a plank, when jumped and go off plank
+    }
   }
 }
 
@@ -156,11 +119,11 @@ class plank{
   constructor(x, y){
       this.x = x;
       this.y = y;
-      this.isCurrent = false;
+      this.isCurrent = false; //if this is the current platform being stood on, if jumping not on any platform
   }
 
   show(){
-    if (this == standing){
+    if (this.isCurrent){
       colorMode(RGB, 255);
       fill(0, 0, 0);
       stroke(0, 255, 0);
