@@ -2,34 +2,62 @@ let playerSize = 10;
 let plankSize = [100, 15];
 let gravity = playerSize * 1;
 let jumpHeight = 15;
-let plankDist = [100, 150];
+let plankDist = [150, 200];
+let options = [-1, 1];
+let counter = 0;
 let planks = [];
 let lavaFloor;
 let player;
+let standingOnThis;
+let locations = [];
 
 function setup() {
-  x = 200;
-  y = 200;
+  x = random(100, window.innerWidth - 100);
+  y = int(random(100, window.innderHeight - 100));
   var cnv = createCanvas(window.innerWidth, window.innerHeight);
   cnv.style('display', 'block');
 
   lavaFloor = new lava(0, height - 50); //set up the character and first platform
   player = new character(x, y);
   planks.push(new plank(x, y + (5 * playerSize))); //test plank spawns right under player
-  planks[0].isCurrent = true;
+  standingOnThis = [planks[0], 0];
 
-  for (i = 1; i < 20; i++) //put the rest of the planks on the screen
-    planks.push(new plank(random(planks[i - 1].x + plankDist[0], planks[i - 1].y + plankDist[1]),
-                          random(planks[i - 1].x + plankDist[0], planks[i - 1].y + plankDist[1])));
+  for (i = 1; i < 5; i++){ //put the rest of the planks on the screen
+    getLocations(planks[i - 1]);
+    planks.push(new plank(locations[0], locations[1]));
+  }
+}
+
+function getLocations(floor){
+  //below, below and left, below and right, above, above and left, above and right, not off the map
+  j = int(random(1)); //checks to place left/right of current platform
+  k = int(random(1)); //checks to place up/down
+  newX = int(floor.x + (options[j] * plankDist[0]));
+  newY = int(floor.y + (options[k] * plankDist[1]));
+
+  // for (i = 0; i < planks.length; i++){
+  //   if (newX > width || newY > height){
+  //     getLocations(floor);
+  //   }
+  //   else if (newX < width || newY < height){
+  //     getLocations(floor);
+  //   }
+  // }
+  locations = [newX, newY];
 }
 
 function draw() {
   background(0);
+  text(locations[0] + " " + locations[1], 100, 100);
   lavaFloor.show();
   for (i = 0; i < planks.length; i++){
-    if (planks[i].isCurrent){
+    if (i == standingOnThis[1]){ //is this the closest platform's index in the list
       player.show();
-      player.update(floor);
+      player.update(standingOnThis[0]);
+    }
+    else{
+      planks[i].isCurrent = false;
+      player.show();
     }
     planks[i].show();
   }
@@ -61,7 +89,7 @@ function characterShape(x, y){ //shapes our character, taking in the coordinates
   endShape(CLOSE);
 }
 
-function checkStanding(player, planks){
+function checkStanding(player, planks){ //returns a tuple of the
   let distances = [];
   min = 10000000;
   index = 0;
@@ -71,7 +99,7 @@ function checkStanding(player, planks){
       index = i;
     }
   }
-  standing = planks[index];
+  standingOnThis = [planks[index], index]; //the closest plank and its index in the list
 }
 
 class lava{ //the ground floor that is lava
@@ -93,6 +121,8 @@ class character{ //the character you move as
   constructor(x, y){
     this.x = x;
     this.y = y;
+    this.onPlatform = true; //true when you start, set to false when you are jumping and y value should never increase when on platform (no falling), only decrease possible (jumping)
+    this.goingUp = false; //true only when the use jumps and the y value needs to decrease, then this is false and the user falls
   }
 
   show(){ //pass in the new x and y, works as an update function
@@ -101,15 +131,49 @@ class character{ //the character you move as
     characterShape(this.x, this.y);
   }
 
-  update(foor){
-    if (keyIsDown(LEFT_ARROW) && this.x - (2 * playerSize) > 0){
+  update(floor){
+    if (keyIsDown(LEFT_ARROW)){ //if player moving is on edge
       this.x -= playerSize;
     }
-    if (keyIsDown(RIGHT_ARROW) && this.x + playerSize < width){
+    if (keyIsDown(RIGHT_ARROW)){
       this.x += playerSize;
     }
-    if (keyIsDown(UP_ARROW)){
-      //check when you walk off a plank, when jumped and go off plank
+    if (this.x + playerSize < floor.x || this.x - (2 * playerSize) > floor.x + plankSize[0]){ //if go off the edge, fall
+      this.onPlatform = false;
+    }
+    else if (floor.y > this.y + (5 * playerSize) + gravity){
+      this.onPlatform = false;
+    }
+    else if (floor.y < this.y){
+      this.onPlatform = false;
+    }
+    else if (!this.goingUp){
+      this.onPlatform = true;
+    }
+
+    if (keyIsDown(UP_ARROW) && !this.goingUp){ //if you aren't jumping, and are on a platform already (no infinite jumping)
+      if (this.onPlatform){
+        this.goingUp = true;
+        this.onPlatform = false;
+        floor.isCurrent = false;
+      }
+    }
+    if (this.goingUp && !this.onPlatform){
+      counter += 1;
+      this.y -= gravity;
+      if (counter == jumpHeight){
+        this.goingUp = false;
+        counter = 0;
+      }
+    }
+    else if (floor.y > this.y + (5 * playerSize) && !this.onPlatform){
+      if (floor.y == this.y + (5 * playerSize)){
+        this.goingUp = false;
+        this.onPlatform = true;
+      }
+    }
+    if (!this.goingUp && !this.onPlatform){
+      this.y += gravity;
     }
   }
 }
@@ -119,11 +183,10 @@ class plank{
   constructor(x, y){
       this.x = x;
       this.y = y;
-      this.isCurrent = false; //if this is the current platform being stood on, if jumping not on any platform
   }
 
   show(){
-    if (this.isCurrent){
+    if (standingOnThis[0] == this){
       colorMode(RGB, 255);
       fill(0, 0, 0);
       stroke(0, 255, 0);
