@@ -35,14 +35,8 @@ function getLocations(floor){
   newX = int(floor.x + (options[j] * plankDist[0]));
   newY = int(floor.y + (options[k] * plankDist[1]));
 
-  // for (i = 0; i < planks.length; i++){
-  //   if (newX > width || newY > height){
-  //     getLocations(floor);
-  //   }
-  //   else if (newX < width || newY < height){
-  //     getLocations(floor);
-  //   }
-  // }
+  if (newX > ) //check if in bounds of map
+
   locations = [newX, newY];
 }
 
