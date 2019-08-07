@@ -1,10 +1,11 @@
 let trailSize = 100;
+let counter = 3;
 
 function setup() {
   colorMode(HSB);
   pulsars = [];
   let colors = [random(255), random(255), random(255)];
-  for (let i = 0; i < 5; i++){
+  for (let i = 0; i < counter; i++){
     pulsars.push(new Pulsar(colors));
   }
   var cnv = createCanvas(window.innerWidth, window.innerHeight);
@@ -13,7 +14,7 @@ function setup() {
 
 function draw() {
   background(0);
-  for (let i = 0; i < 5; i++){
+  for (let i = 0; i < counter; i++){
     pulsars[i].show();
   }
 }
@@ -30,6 +31,7 @@ class Sun{ //just a ball that pulses
     this.size = s;
     this.color = color;
     this.goingDown = true;
+    this.goingRight = true;
     this.isGrowing = false;
   }
 
@@ -45,17 +47,30 @@ class Sun{ //just a ball that pulses
       this.size -= 1;
     }
 
-    if (this.y + 50 < window.innerHeight && this.goingDown){
-      this.y += 1;
+    if (this.y + 50 < window.innerHeight && this.goingDown){ //series of if statemnts dealing with
+      this.y += 1;                                           //the y coordinate movement
     }
     else{
       this.goingDown = false;
     }
-    if (this.goingDown == false){
+    if (!this.goingDown){
       this.y -= 1;
     }
     if (this.y - 50 < 0){
       this.goingDown = true;
+    }
+
+    if(this.x + 50 < window.innerWidth && this.goingRight){
+      this.x += 1;
+    }
+    else{
+      this.goingRight = false;
+    }
+    if (!this.goingRight){
+      this.x -= 1;
+    }
+    if (this.x - 50 < 0){
+      this.goingRight = true;
     }
   }
 
