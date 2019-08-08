@@ -1,10 +1,10 @@
-let trailSize = 100;
-let counter = 3;
+let trailSize = 300;
+let counter = 6;
 
 function setup() {
   colorMode(HSB);
   pulsars = [];
-  let colors = [random(255), random(255), random(255)];
+  let colors = [random(255), random(255), 100];
   for (let i = 0; i < counter; i++){
     pulsars.push(new Pulsar(colors));
   }
@@ -33,6 +33,7 @@ class Sun{ //just a ball that pulses
     this.goingDown = true;
     this.goingRight = true;
     this.isGrowing = false;
+	this.trailSize = trailSize;
   }
 
   update(){
@@ -47,8 +48,8 @@ class Sun{ //just a ball that pulses
       this.size -= 1;
     }
 
-    if (this.y + 50 < window.innerHeight && this.goingDown){ //series of if statemnts dealing with
-      this.y += 1;                                           //the y coordinate movement
+    if (this.y + 50 < window.innerHeight && this.goingDown){ //series of if statemnts dealing with the y coordinate movement
+      this.y += 1;
     }
     else{
       this.goingDown = false;
@@ -60,7 +61,7 @@ class Sun{ //just a ball that pulses
       this.goingDown = true;
     }
 
-    if(this.x + 50 < window.innerWidth && this.goingRight){
+    if(this.x + 50 < window.innerWidth && this.goingRight){ //series of if statments dealing with he x coordinate movement
       this.x += 1;
     }
     else{
@@ -88,12 +89,14 @@ class Pulsar{ //two suns pulsing together with a trail
     let x = random(window.innerWidth);
     let y = random(window.innerHeight);
     this.rays = [];
-    this.rays.push(new Sun(color(colors), 30, x, y));
+	let colorSet = [colors[0], colors[1], colors[2]];
+    this.rays.push(new Sun(colors, 30, x, y));
     this.rays.push(new Sun(color(random(255), random(255), random(255)), 5, x, y));
     this.Trail = [];
-    this.Trail.push(new Trail(colors, this.rays[0]));
+    this.Trail.push(new Trail(colorSet, this.rays[0]));
+	let j = 100 / trailSize;
     for (let i = 1; i < trailSize; i++){
-      this.Trail.push(new Trail(colors, this.Trail[i - 1]));
+      this.Trail.push(new Trail([colorSet[0] -= j, colorSet[1] -= j, colorSet[2] -= j], this.Trail[i - 1]));
     }
   }
 
@@ -117,16 +120,19 @@ class Trail{
     this.lastY = this.y;
     this.lastX  = this.x;
     this.color = colors;
+	this.size = head.tailSize;
   }
 
   show(){
-    fill(this.color);
-    stroke(this.color);
-    circle(this.x, this.y, 20);
-  }
+	  fill(this.color);
+	  stroke(this.color);
+	  square(this.x, this.y, 20);
+	}
 
   update(x, y){
     this.lastX = this.x;
     this.lastY = this.y;
     this.x = x;
     this.y = y;
+  }
+}
