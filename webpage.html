@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 
-<html style="color: white; font-family: Candara; font-size: x-large">
+<html style="background-color: black;  color: white; font-family: Candara; font-size: x-large">
 
 <style>
     .grid-container {
         display: grid;
-        grid-template-columns: 20ox auto auto;
-        grid-gap: 10px;
+        justify-content: center;
+        grid-template-columns: 300px 300px 300px;
+        grid-template-rows: 300px 300px 300px;
+        grid-gap: 20px;
         background-color: black;
         padding: 10px;
+        
     }
 
     .grid-container > div {
         background-color: black;
         text-align: center;
-        padding: 20px 0;
+        padding: 10px;
         font-size: 30px;
     }
 
@@ -27,16 +30,20 @@
         color: black;
         text-align: center;
     }
+
+    .item1 {
+        grid-column: 1/4;
+    }
 </style>
 
 <h1 style="color: red" align="center">F8's Page</h1>
 
-<div class="grid-container" align="center">
-    <div>
+<div class="grid-container">
+    <div class="item1">
         <body>
             About Me
             <p style="color: lightgray; font-size: large">
-                Hello, and welcome to my webpage. Here you will see links to several projects. Some of them are projects I did for fun, and others are for school work.
+                Hello, and welcome to my webpage. Here you will see links to several projects. Some of them are projects I did for fun, and others are for school work. If you are a potential employer, please check out my email along with the link to my resumé at the bottom of the webpage.
             </p>
         </body>
     </div>
@@ -48,14 +55,22 @@
         </p>
     </div>
     <div>
-        <body bgcolor="#000000">
-            P5-JS Pojects
+        <body>
+            P5-JS Fun
             <p style="color: gray">
                 <a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/3D%20Planets/index.html">Planet Collapse</a>
                 <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Headache">Extreme RGB</a> (Seizure Warning)
                 <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/jitter%20blocks/index.html">Jitter Blocks
                 <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/snake/index.html">Auto Snake</a>
                 <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Trails/index.html">Trails</a>
+            </p>
+        </body>
+    </div>
+    <div>
+        <body>
+            P5-JS Algorithms
+            <p syle="color: gray">
+                Coming Soon
             </p>
         </body>
     </div>
