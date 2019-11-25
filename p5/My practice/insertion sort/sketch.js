@@ -1,6 +1,8 @@
-let A = [];
 let BWIDTH = 100;
-let BCOUNT = 50;
+let BCOUNT = 100;
+let FPS = 60;
+
+let A = [];
 let outerLoop = 0;
 let innerLoop = -1;
 let continues = 0;
@@ -9,13 +11,18 @@ function setup() {
     var cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.style('display', 'block');
 	BWIDTH = window.innerWidth / BCOUNT;
-	frameRate(10);
+    frameRate(FPS);
+    colorMode(HSB);
 
+    let H = random(1, 255);
+    let S = random(1, 255);
+    let B = 10;
+    col = [H, S, B];
 	let lastPos = 0;
 	for (i = 0; i < BCOUNT; i+=1){
-		col = [random(1, 255), random(1, 254), random(1, 254)];
 		A.push(new Block(lastPos, 0, random(10, window.innerHeight), col));
-		lastPos += BWIDTH;
+        lastPos += BWIDTH;
+        col = [H, S, B += .5]
 	}
 }
 
@@ -72,8 +79,8 @@ class Block{
 
 	show(){
 		if (this.h){
-			fill(255, 255, 0);
-			stroke(255, 255, 255);
+			fill(60, 100, 100);
+			stroke(60, 100, 100);
 			rect(this.x, this.y, BWIDTH, this.s);
 		}
 		else{
@@ -85,8 +92,6 @@ class Block{
 }
 
 function UpdatePos(A){
-  //checks which index of A the element is in a places it on the screen correctly
-  //IE first thing in array is at 0, so it is at this.x = 0
   for (i = 0; i < A.length; i++){
     A[i].x = i * BWIDTH;
   }
