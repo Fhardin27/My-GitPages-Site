@@ -1,5 +1,6 @@
 let trailSize = 300;
 let counter = 6;
+let colorValue = 0;
 
 function setup() {
   colorMode(HSB);
@@ -13,7 +14,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(colorValue);
   for (let i = 0; i < counter; i++){
     pulsars[i].show();
   }
@@ -21,6 +22,14 @@ function draw() {
 
 function windowResized(){
   resizeCanvas(window.innerWidth, window.innerHeight);
+}
+
+function mousePressed(){
+  if (colorValue == 0)
+    colorValue = color(0, 0, 0, 0);
+  else {
+    colorValue = 0;
+  }
 }
 
 class Sun{ //just a ball that pulses
