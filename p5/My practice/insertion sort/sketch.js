@@ -1,20 +1,20 @@
 let A = [];
 let BWIDTH = 100;
-let BCOUNT = 10;
-let outerLoop = 1;
-let lastOuterLoop = -1;
-let innerLoop = 0;
+let BCOUNT = 50;
+let outerLoop = 0;
+let innerLoop = -1;
+let continues = 0;
 
 function setup() {
     var cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.style('display', 'block');
 	BWIDTH = window.innerWidth / BCOUNT;
-	frameRate(1);
-	
+	frameRate(10);
+
 	let lastPos = 0;
 	for (i = 0; i < BCOUNT; i+=1){
 		col = [random(1, 255), random(1, 254), random(1, 254)];
-		A.push(new Block(lastPos, 0, random(0, window.innerHeight), col));
+		A.push(new Block(lastPos, 0, random(10, window.innerHeight), col));
 		lastPos += BWIDTH;
 	}
 }
@@ -22,44 +22,38 @@ function setup() {
 function draw() {
     background(0);
 
-	for (block of A){
-		block.show()
+    UpdatePos(A);
+
+	   for (block of A){
+		     block.show()
+         block.h = false;
     }
-    //A[innerLoop + 1].h = false;
 
     if (outerLoop < A.length && innerLoop != -1) {
-        temp = A[outerLoop];
+      temp = A[outerLoop - continues];
 
+        var x = 0;
         if (innerLoop >= 0 && temp.s < A[innerLoop].s) {
-            text("okkkkkkkkkkkk", 100, 100);
-            //A[innerLoop].h = true;
-            A[]
+            A[innerLoop + 1].h = true;
             A[innerLoop + 1] = A[innerLoop];
-            A[innerLoop] = 
             innerLoop -= 1;
+            x = 1;
+            continues += 1;
+        }
+
+        if (!Boolean(x)){
+          A[innerLoop + 1] = temp;
+          innerLoop = -1;
         }
         else {
-            A[outerLoop] = A[innerLoop];
-            A[innerLoop] = temp;
-            outerLoop += 1;
-            innerLoop = outerLoop - 1;
+          A[innerLoop + 1]  = temp;
         }
-    }
-    else
+     }
+    else if (outerLoop < A.length + 1){
+        outerLoop += 1;
         innerLoop = outerLoop - 1;
-
-
-    textSize(32);
-
-    let y = 30;
-    for (block of A) {
-        text(block.s, 10, y);
-        fill(255, 0, 0);
-        y += 30;
+        continues = 0;
     }
-    text("inner" + innerLoop, 10, y);
-    fill(255, 0, 0);
-    text("outer" + outerLoop, 10, y + 30);
 }
 
 function windowResized() {
@@ -67,7 +61,7 @@ function windowResized() {
 }
 
 class Block{
-	
+
 	constructor(x, y, s, c){
 		this.x = x;
 		this.y = y;
@@ -75,7 +69,7 @@ class Block{
 		this.s = s;
 		this.h = false;
 	}
-	
+
 	show(){
 		if (this.h){
 			fill(255, 255, 0);
@@ -88,4 +82,12 @@ class Block{
 			rect(this.x, this.y, BWIDTH, this.s);
 		}
 	}
+}
+
+function UpdatePos(A){
+  //checks which index of A the element is in a places it on the screen correctly
+  //IE first thing in array is at 0, so it is at this.x = 0
+  for (i = 0; i < A.length; i++){
+    A[i].x = i * BWIDTH;
+  }
 }
