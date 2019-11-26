@@ -1,6 +1,6 @@
 let BWIDTH = 100;
-let BCOUNT = 100;
-let FPS = 60;
+const BCOUNT = 100;
+const FPS = 100;
 
 let A = [];
 let outerLoop = 0;
@@ -10,19 +10,21 @@ let continues = 0;
 function setup() {
     var cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.style('display', 'block');
-	BWIDTH = window.innerWidth / BCOUNT;
+	  BWIDTH = window.innerWidth / BCOUNT;
     frameRate(FPS);
     colorMode(HSB);
 
-    let H = random(1, 255);
-    let S = random(1, 255);
-    let B = 10;
-    col = [H, S, B];
+    let H = 0;
+    let S = 100;
+    let B = 50;
+
 	let lastPos = 0;
 	for (i = 0; i < BCOUNT; i+=1){
-		A.push(new Block(lastPos, 0, random(10, window.innerHeight), col));
-        lastPos += BWIDTH;
-        col = [H, S, B += .5]
+    let size = random(10, window.innerHeight);
+    H = map(size, 10, window.innerHeight, 0, 270);
+    col = [H, S, B];
+		A.push(new Block(lastPos, 0, size, col));
+    lastPos += BWIDTH;
 	}
 }
 
@@ -79,8 +81,8 @@ class Block{
 
 	show(){
 		if (this.h){
-			fill(60, 100, 100);
-			stroke(60, 100, 100);
+			fill(0, 0, 100);
+			stroke(0, 0, 100);
 			rect(this.x, this.y, BWIDTH, this.s);
 		}
 		else{
