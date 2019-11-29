@@ -1,6 +1,5 @@
 let BWIDTH = 100; //width of blocks based on screen size
 const BCOUNT = 500; //number of blocks
-const FPS = 200;
 
 let A = []; //array to be sorted
 let currentSize = 1;
@@ -12,7 +11,6 @@ function setup() {
   var cnv = createCanvas(window.innerWidth, window.innerHeight);
   cnv.style('display', 'block');
   BWIDTH = window.innerWidth / BCOUNT;
-  frameRate(FPS);
   colorMode(HSB);
 
   let H = 0;

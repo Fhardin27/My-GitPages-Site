@@ -1,6 +1,5 @@
 let BWIDTH = 100;
-const BCOUNT = 100;
-const FPS = 100;
+const BCOUNT = 150;
 
 let A = [];
 let outerLoop = 0;
@@ -11,7 +10,6 @@ function setup() {
     var cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.style('display', 'block');
 	  BWIDTH = window.innerWidth / BCOUNT;
-    frameRate(FPS);
     colorMode(HSB);
 
     let H = 0;
