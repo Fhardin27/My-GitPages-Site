@@ -12,7 +12,7 @@ function setup() {
   cnv.style('display', 'block');
   BWIDTH = window.innerWidth / BCOUNT;
   colorMode(HSB);
-
+  frameRate(10);
   let H = 0;
   let S = 100;
   let B = 50;
@@ -53,6 +53,18 @@ function draw() {
     else {
       currentSize *= 2;
       left = 0;
+    }
+  }
+  else if (currentSize >= A.length - 1 && BCOUNT % 2 != 0){  //misses the last item sometimes, performs insertion sort on last item
+    before = A.length - 2;
+    smaller = A.length - 1;
+    while (before >= 0 && (A[smaller].s < A[before].s)){
+      A[smaller].h = true;
+      temp = A[before];
+      A[before] = A[smaller];
+      A[smaller] = temp;
+      smaller -= 1;
+      before -= 1;
     }
   }
   UpdatePos(A);
