@@ -91,6 +91,7 @@ class Block {
     show() {
         if (this.h) {
             fill(0, 0, 255, 255);
+            stroke(0, 0, 255, 255);
             rect(this.x, this.y, BWIDTH, this.s);
         }
         else {
@@ -160,7 +161,7 @@ function PopUpWindow() {
         text("Up arrow - increase things to sort.", x, y += 20);
         text("Down Arrow - decrease things to sort.", x, y += 20);
         text("R - Restart.", x, y += 20);
-        text("Current sort count: " + CurrentCount, x, y += 20);
+        text("Current sort count - " + CurrentCount, x, y += 20);
     }
 }
 
