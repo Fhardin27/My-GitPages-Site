@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 
-<html style="background-color: black;  color: white; font-family: Candara; font-size: x-large">
+<html style="background-color: black;  color: white; font-family: Candara; font-size: 20px">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
+    ul {
+        list-style-type: none;
+    }
+
+    li {
+        font-size: 2vw;
+    }
+
+    a {
+        color: #A6F9FF;
+        text-decoration: none;
+    }
+
+    h4 {
+        color: #E3004D;
+        font-size: 2.5vw;
+    }
+
     .grid-container {
         display: grid;
         justify-content: center;
@@ -13,12 +31,12 @@
         padding: auto;
     }
 
-        .grid-container > div {
-            background-color: black;
-            text-align: center;
-            padding: auto;
-            font-size: auto;
-        }
+    .grid-container > div {
+        background-color: black;
+        text-align: center;
+        padding: auto;
+        font-size: auto;
+    }
 
     .footer {
         position: fixed;
@@ -35,45 +53,42 @@
     }
 </style>
 
-<h1 style="color: red" align="center">F8's Page</h1>
+<h1 style="font-size: 3em; color: red" align="center">F8's Page</h1>
 
-<div class="grid-container">
+<div id="container" class="grid-container">
+    <script>
+        if (window.innerHeight < 769 && window.innerWidth < 1367)
+            document.getElementById("container").style.display = "block";
+    </script>
     <div class="item1">
-        <body>
-            About Me
-            <p style="color: lightgray; font-size: large">
-                Hello, and welcome to my webpage. I am currently a student at UT Martin with an intended graduation date of May 2020. Here you will see links to several projects. Some of them are projects I did for fun, and others are for school work. If you are a potential employer, please check out my email along with the link to my resume at the bottom of the webpage.
-            </p>
-        </body>
-    </div>
-    <div>
-        School Projects (Github)
-        <p style="color: gray">
-            <a style="color: gray" target="_self" href="https://github.com/bryjdown/thinkfast">ThinkFast VR</a>-<a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/thinkfastSlides.pdf">PPT</a> (2019)
-            <br /><a style="color: gray" target="_self" href="https://github.com/F8Hardin/Student-Planner-Project">Student Planner Project</a>-<a style="color: gray" targer="_self" href="https://github.com/F8Hardin/Student-Planner-Project/blob/master/project2018.pdf">Report</a> (2018)
+        <h3>About Me</h3>
+        <p style="color: lightgray; font-size: ;">
+            Hello, and welcome to my webpage. I am currently a student at UT Martin with an intended graduation date of May 2020. Here you will see links to several projects. Some of them are projects I did for fun, and others are for school work. If you are a potential employer, please check out my email along with the link to my resume at the bottom of the webpage.
         </p>
     </div>
     <div>
-        <body>
-            P5-JS Fun
-            <p style="color: gray">
-                <a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/3D%20Planets/index.html">Planet Collapse</a>
-                <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Headache">Extreme RGB</a> (Seizure Warning)
-                <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/jitter%20blocks/index.html">
-                    Jitter Blocks
-                    <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/snake/index.html">Auto Snake</a>
-                    <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Trails/index.html">Trails</a>
-            </p>
-        </body>
+        <ul>
+            <h4>School Projects (Github)</h4>
+            <li><a target="_self" href="https://github.com/bryjdown/thinkfast">ThinkFast VR-</a><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/thinkfastSlides.pdf">PPT (2019)</a></li>
+            <li><a target="_self" href="https://github.com/F8Hardin/Student-Planner-Project">Student Planner Project<a>-<a targer="_self" href="https://github.com/F8Hardin/Student-Planner-Project/blob/master/project2018.pdf">Report (2018)</a></li>
+        </ul>
     </div>
     <div>
-        <body>
-            P5-JS Algorithms
-            <p style="color: gray">
-                <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/insertion%20sort/index.html">Insertion Sort</a>
-                <br /><a style="color: gray" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/merge%20sort/index.html">Merge Sort</a>
-            </p>
-        </body>
+        <ul>
+            <h4>P5-JS Fun</h4>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/3D%20Planets/index.html">Planet Collapse</a></li>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Headache">Extreme RGB (Seizure Warning)</a></li>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/jitter%20blocks/index.html">Jitter Blocks</a></li>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/snake/index.html">Auto Snake</a></li>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Trails/index.html">Trails</a></li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <h4>P5-JS Algorithms</h4>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/insertion%20sort/index.html">Insertion Sort</a></li>
+            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/merge%20sort/index.html">Merge Sort</a></li>
+        </ul>
     </div>
 </div>
 
@@ -81,5 +96,4 @@
     Created by Fate Hardin
     <br />joslhard@ut.utm.edu - <a style="color: black" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/Resume.pdf">Resume</a>
 </div>
-
 </html>
