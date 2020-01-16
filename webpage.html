@@ -57,8 +57,10 @@
 
 <div id="container" class="grid-container">
     <script>
-        if (window.innerHeight < 769 && window.innerWidth < 1367)
+        if (window.innerHeight < 769 && window.innerWidth < 1367){
             document.getElementById("container").style.display = "block";
+            document.getElementsByTagName("ul").style.text-align = "center";
+        }
     </script>
     <div class="item1">
         <h3>About Me</h3>
