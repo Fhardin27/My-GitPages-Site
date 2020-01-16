@@ -19,6 +19,7 @@
     h4 {
         color: #E3004D;
         font-size: 2.5vw;
+        text-align: center;
     }
 
     .grid-container {
@@ -94,22 +95,42 @@
 </div>
 
 <script>
-    if (window.innerWidth < 1400){
-        container = document.getElementById("container");
-        container.style.display = "block";
-        container.style.marginBottom = "100px";
+    function updateWindow(){
+        if (window.innerWidth < 1400){
+            container = document.getElementById("container");
+            container.style.display = "block";
+            container.style.marginBottom = "100px";
+            l = document.getElementsByClassName("item1");
 
-        h4 = document.getElementsByTagName("h4");
-        for (let i = 0; i < h4.length; i++){
-            h4[i].style.textAlign = "center";
-            h4[i].style.fontSize = "30px";
+            h4 = document.getElementsByTagName("h4");
+            for (let i = 0; i < h4.length; i++){                
+                h4[i].style.fontSize = "30px";
+            }
+
+            listEl = document.getElementsByTagName("li");
+            for (let i = 0; i < listEl.length; i++){
+                listEl[i].style.fontSize = "30px";
+            }
         }
+        else{
+            container = document.getElementById("container");
+            container.style.display = "grid";
+            container.style.marginBottom = 0;
+            l = document.getElementsByClassName("item1");
+            l[0].style.gridColumn = 1/4;
 
-        listEl = document.getElementsByTagName("li");
-        for (let i = 0; i < listEl.length; i++){
-            listEl[i].style.fontSize = "30px";
-            listEl[i].style.textAlign = "center";
+            h4 = document.getElementsByTagName("h4");
+            for (let i = 0; i < h4.length; i++){               
+                h4[i].style.fontSize = "2.5vw";
+            }
+
+            listEl = document.getElementsByTagName("li");
+            for (let i = 0; i < listEl.length; i++){
+                listEl[i].style.fontSize = "2vw";
+            }
         }
     }
+    window.addEventListener("resize", updateWindow);
+    updateWindow();
 </script>
 </html>
