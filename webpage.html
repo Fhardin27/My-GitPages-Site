@@ -38,14 +38,10 @@
         font-size: auto;
     }
 
-    div {
-        margin-bottom: 100px;
-    }
-
     .footer {
         position: fixed;
         left: 0;
-        bottom: -100px;
+        bottom: 0;
         width: 100%;
         background-color: gray;
         color: black;
@@ -60,13 +56,6 @@
 <h1 style="font-size: 3em; color: red" align="center">F8's Page</h1>
 
 <div id="container" class="grid-container">
-    <script>
-        if (window.innerHeight < 769 && window.innerWidth < 1367){
-            document.getElementById("container").style.display = "block";
-            document.getElementsByTagName("ul").style.textAlign = "center";
-            document.getElementsById("li").style.fontSize = "100px";
-        }
-    </script>
     <div class="item1">
         <h3>About Me</h3>
         <p style="color: lightgray; font-size: ;">
@@ -103,4 +92,24 @@
     Created by Fate Hardin
     <br />joslhard@ut.utm.edu - <a style="text-decoration: underline; color: black" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/Resume.pdf">Resume</a>
 </div>
+
+<script>
+    if (window.innerWidth < 1400){
+        container = document.getElementById("container");
+        container.style.display = "block";
+        container.style.marginBottom = "100px";
+
+        h4 = document.getElementsByTagName("h4");
+        for (let i = 0; i < h4.length; i++){
+            h4[i].style.textAlign = "center";
+            h4[i].style.fontSize = "30px";
+        }
+
+        listEl = document.getElementsByTagName("li");
+        for (let i = 0; i < listEl.length; i++){
+            listEl[i].style.fontSize = "30px";
+            listEl[i].style.textAlign = "center";
+        }
+    }
+</script>
 </html>
