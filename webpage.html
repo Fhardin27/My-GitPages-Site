@@ -1,140 +1,20 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html style="background-color: black;  color: white; font-family: Candara; font-size: 20px">
-<title>F8's Page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-    ul {
-        list-style-type: none;
-    }
+<head>
+    <title>F8's New Page</title>
+    <link rel="stylesheet" type="text/css" href="CSS Stylesheets/design1.css" />
+    <meta name="viewport" http-equiv="Content-Type" content="width=device-width, initial-scale=1, text/html, charset=utf-8" />
+</head>
 
-    li {
-        font-size: 2vw;
-    }
+<body>
+    <header>
+        This is my Header. I think Ill put my name, a link to linked in, and maybe links to other things.
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="true">
+            <polygon fill="grey" points="0,100 100,100 100,10 60,5 0,10"/>
+        </svg>
+    </header>
+</body>
 
-    a {
-        color: #A6F9FF;
-        text-decoration: none;
-    }
-
-    h4 {
-        color: #E3004D;
-        font-size: 2.5vw;
-        text-align: center;
-    }
-
-    .grid-container {
-        display: grid;
-        justify-content: center;
-        grid-template-columns: auto auto auto;
-        grid-template-rows: auto;
-        grid-gap: auto;
-        background-color: black;
-        padding: auto;
-    }
-
-    .grid-container > div {
-        background-color: black;
-        text-align: center;
-        padding: auto;
-        font-size: auto;
-    }
-
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: gray;
-        color: black;
-        text-align: center;
-    }
-
-    .item1 {
-        grid-column: 1/4;
-    }
-</style>
-
-<h1 style="font-size: 3em; color: red" align="center">F8's Page</h1>
-
-<div id="container" class="grid-container">
-    <div class="item1">
-        <h3>About Me</h3>
-        <p style="color: lightgray; font-size: ;">
-            Hello, and welcome to my webpage. I am currently a student at UT Martin with an intended graduation date of May 2020. Here you will see links to several projects. Some of them are projects I did for fun, and others are for school work. If you are a potential employer, please check out my email along with the link to my resume at the bottom of the webpage.
-        </p>
-    </div>
-    
-    <div>
-        <ul>
-            <h4>School Projects (Github)</h4>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/thinkfastSlides.pdf">ThinkFast VR-</a><a target="_self" href="https://store.steampowered.com/app/1296370/ThinkFast/">Available on Steam!</a></li>
-            <li><a target="_self" href="https://github.com/F8Hardin/Student-Planner-Project">Student Planner Project<a>-<a targer="_self" href="https://github.com/F8Hardin/Student-Planner-Project/blob/master/project2018.pdf">Report (2018)</a></li>
-        </ul>
-    </div>
-
-    <div>
-        <ul>
-            <h4>P5-JS Fun</h4>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/3D%20Planets/index.html">Planet Collapse</a></li>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Headache">Extreme RGB (Seizure Warning)</a></li>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/jitter%20blocks/index.html">Jitter Blocks</a></li>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/snake/index.html">Auto Snake</a></li>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/Trails/index.html">Trails</a></li>
-        </ul>
-    </div>
-
-    <div>
-        <ul>
-            <h4>P5-JS Algorithms</h4>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/insertion%20sort/index.html">Insertion Sort</a></li>
-            <li><a target="_self" href="https://fhardin27.github.io/P5-JS-Practice/p5/My%20practice/merge%20sort/index.html">Merge Sort</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="footer">
-    Created by Fate Hardin
-    <br />joslhard@ut.utm.edu - <a style="text-decoration: underline; color: black" target="_self" href="https://fhardin27.github.io/P5-JS-Practice/other/Resume.pdf">Resume</a>
-</div>
-
-<script>
-    function updateWindow(){
-        if (window.innerWidth < 1400){
-            container = document.getElementById("container");
-            container.style.display = "block";
-            container.style.marginBottom = "100px";
-            l = document.getElementsByClassName("item1");
-
-            h4 = document.getElementsByTagName("h4");
-            for (let i = 0; i < h4.length; i++){                
-                h4[i].style.fontSize = "30px";
-            }
-
-            listEl = document.getElementsByTagName("li");
-            for (let i = 0; i < listEl.length; i++){
-                listEl[i].style.fontSize = "30px";
-            }
-        }
-        else{
-            container = document.getElementById("container");
-            container.style.display = "grid";
-            container.style.marginBottom = 0;
-            l = document.getElementsByClassName("item1");
-            l[0].style.gridColumn = 1/4;
-
-            h4 = document.getElementsByTagName("h4");
-            for (let i = 0; i < h4.length; i++){               
-                h4[i].style.fontSize = "2.5vw";
-            }
-
-            listEl = document.getElementsByTagName("li");
-            for (let i = 0; i < listEl.length; i++){
-                listEl[i].style.fontSize = "2vw";
-            }
-        }
-    }
-    window.addEventListener("resize", updateWindow);
-    updateWindow();
-</script>
+<script src="HTML JS/resize.js"></script>
 </html>
